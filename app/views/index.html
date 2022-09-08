@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+Prototype versioning index
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          
+          <span class="govuk-caption-xl">Prototype versioning</span>
+          <h1 class="govuk-heading-xl">Multiple versions in a single app</h1>
+
+        </div>
+
+        <div class="govuk-grid-column-two-thirds">
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Each version needs it's own folder in 'views'</li>
+            <li>Each version requires it's own routes file, which stores the version number and version specific routing</li>
+            <li>You need to include each version routes file in the master routes.js</li>
+            <li>Hyperlinks can use relative pathing (/, ./, ../) to maintain the current version</li>
+            <li>You can pass the version back to the template via a res.get, for js functions, routing, dynamic links etc</li>
+          </ul>
+         
+          <div class="govuk-inset-text">
+            Let's get started with a simple user journey
+          </div>
+
+        <a href="/v1/personal-details/full-name" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8"  data-module="govuk-button">
+          Start now
+          <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+          </svg>
+        </a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+What is your full name?
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+          <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                  <a href="#full-name">{{error}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+
+        {% if error %}
+          <div class="govuk-form-group govuk-form-group--error">
+        {% else %}
+          <div class="govuk-form-group">
+        {% endif %}
+
+          <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="full-name">
+                What is your full name?
+              </label>
+            </h1>
+            <div id="full-name-hint" class="govuk-hint">
+              This should be your full, legal name including any middle names.
+            </div>
+
+            {% if error %}
+              <p id="full-name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>{{error}}</p>
+              <input class="govuk-input govuk-input--error" id="full-name" name="full-name" type="text" aria-describedby="full-name-hint" value="{{data['full-name']}}">
+            {% else %}
+              <input class="govuk-input" id="full-name" name="full-name" type="text" aria-describedby="full-name-hint" value="{{data['full-name']}}">
+            {% endif %}
+
+          </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+
+
+    </div>
+</div>
+
+{% endblock %}
