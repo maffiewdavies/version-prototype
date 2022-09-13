@@ -57,7 +57,73 @@ Check your answers
 
     </form>
 
-    </div>
 </div>
+<div class="govuk-grid-column-full">
+
+  <div class="how-it-works">
+
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-dob">
+      <div class="govuk-accordion__section ">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+              What's happening behind the scenes
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+          <p>Routes file being used</p>
+        <pre class="app-code"><code>/apps/routes/routing-v2.js</code></pre>
+      
+        <p>Vesion set at the top of the routes file</p>
+        
+        <pre class="app-code"><code>var version = "v2";</code></pre>
+  
+        <p>When the page is requested, an array of months is used to display a friendly format</p>
+  
+<pre class="app-code"><code>var months =
+[
+ 'January',
+ 'February',
+ 'March',
+ 'April',
+ 'May',
+ 'June',
+ 'July',
+ 'August',
+ 'September',
+ 'October',
+ 'November',
+ 'December'
+];</code></pre>
+
+
+<pre class="app-code"><code>router.get('/' + version + '/personal-details/check-your-answers/cya', function (req, res) {
+    res.render(version + '/personal-details/check-your-answers/cya', {
+        'version': version,
+        'months': months[req.session.data['date-of-birth-month']-1]
+    });
+});</code></pre>
+
+<p>How the version number gets pulled in</p>
+  
+<pre class="app-code"><code>// This route should go at the end of the file and is for passing the version variable
+// back to the page for things like version tags, javascript routing or urls
+router.get('/' + version + '*', function (req, res) {
+//Trim leading '/' from page requested url
+var page_requested = req.originalUrl;
+page_requested = page_requested.substring(1);
+
+res.render(page_requested, {
+    'version': version,
+});
+});</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 
 {% endblock %}

@@ -16,3 +16,46 @@ $govuk-assets-path: '/govuk/assets/';
 @import "patterns/task-list";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+.how-it-works {
+    // padding-top: 1rem;
+    margin-top: 2rem;
+    position: relative;
+    .govuk-accordion__controls {
+        display: none;
+    }
+    .govuk-accordion {
+        border-bottom: 0!important;
+    }
+
+    p {
+        margin-bottom: 0.8rem;
+    }
+
+    .govuk-accordion__section-heading-text {
+        font-size: 19px;
+        margin-bottom: 0.75rem;
+    }
+
+    .govuk-accordion__section-toggle-text {
+        font-size: 16px;
+    }
+}
+
+.app-code, .app-prose-scope pre {
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.25;
+    position: relative;
+    margin: 0;
+    margin-bottom: 2rem;
+    padding: 15px;
+    overflow: scroll;
+    border: 3px solid transparent;
+    outline: 1px solid #b1b4b6;
+    background-color: #f3f2f1;
+  }

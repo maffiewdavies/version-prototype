@@ -80,8 +80,8 @@ module.exports = function (router) {
     // CATCH ALL ROUTES - CAN ONLY THINK OF GET REQUESTS AND PASSING DATA RIGHT NOW
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    // This route should go at the end of the file and is for passing the version variable back to the page
-    // for things like version tags, javascript routing or urls
+    // This route should go at the end of the file and is for passing the version
+    // variable back to the page for things like version tags, javascript routing or urls
     router.get('/' + version + '*', function (req, res) {
         //Trim leading '/' from page requested url
         var page_requested = req.originalUrl;

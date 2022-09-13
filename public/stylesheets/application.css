@@ -8544,3 +8544,42 @@ x:-moz-any-link {
     margin-bottom: 0;
   }
 }
+
+.how-it-works {
+  margin-top: 2rem;
+  position: relative;
+}
+.how-it-works .govuk-accordion__controls {
+  display: none;
+}
+.how-it-works .govuk-accordion {
+  border-bottom: 0 !important;
+}
+.how-it-works p {
+  margin-bottom: 0.8rem;
+}
+.how-it-works .govuk-accordion__section-heading-text {
+  font-size: 19px;
+  margin-bottom: 0.75rem;
+}
+.how-it-works .govuk-accordion__section-toggle-text {
+  font-size: 16px;
+}
+
+.app-code, .app-prose-scope pre {
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.25;
+  position: relative;
+  margin: 0;
+  margin-bottom: 2rem;
+  padding: 15px;
+  overflow: scroll;
+  border: 3px solid transparent;
+  outline: 1px solid #b1b4b6;
+  background-color: #f3f2f1;
+}
