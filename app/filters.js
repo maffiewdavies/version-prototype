@@ -38,6 +38,11 @@ module.exports = function (env) {
 
   ------------------------------------------------------------------ */
 
+filters.friendlyMonths = function(month) {
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[month-1]
+}
+
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */

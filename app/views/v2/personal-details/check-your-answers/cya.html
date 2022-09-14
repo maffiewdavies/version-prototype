@@ -30,8 +30,8 @@ Check your answers
         <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Date of birth</dt>
 
-        {% if data['full-name'} %}
-            <dd class="govuk-summary-list__value">{{data['date-of-birth-day']}} {{months}} {{data['date-of-birth-year']}}</dd>
+        {% if data['date-of-birth-day'} %}
+            <dd class="govuk-summary-list__value">{{data['date-of-birth-day']}} {{data['date-of-birth-month'] | friendlyMonths}} {{data['date-of-birth-year']}}</dd>
         {% else %}
         <dd class="govuk-summary-list__value">3 December 1990</dd>
         {% endif %}
@@ -79,45 +79,41 @@ Check your answers
         
         <pre class="app-code"><code>var version = "v2";</code></pre>
   
-        <p>When the page is requested, an array of months is used to display a friendly format</p>
-  
-<pre class="app-code"><code>var months =
-[
- 'January',
- 'February',
- 'March',
- 'April',
- 'May',
- 'June',
- 'July',
- 'August',
- 'September',
- 'October',
- 'November',
- 'December'
-];</code></pre>
-
+        <p>When the page is requested</p>
 
 <pre class="app-code"><code>router.get('/' + version + '/personal-details/check-your-answers/cya', function (req, res) {
     res.render(version + '/personal-details/check-your-answers/cya', {
         'version': version,
         'months': months[req.session.data['date-of-birth-month']-1]
-    });
-});</code></pre>
+    })
+})</code></pre>
+
+<p>A friendly month is rendered using a filter (friendlyMonths)</p>
+
+<pre class="app-code"><code>/apps/filters.js</code></pre>
+
+<pre class="app-code"><code>filters.friendlyMonths = function(month) {
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[month-1]
+}</code></pre>
+
+<p>We call the filter in the page</p>
+
+<pre class="app-code"><code>{% raw %}{{ data['date-of-birth-month'] | friendlyMonths }}{% endraw %}</code></pre>
 
 <p>How the version number gets pulled in</p>
-  
+      
 <pre class="app-code"><code>// This route should go at the end of the file and is for passing the version variable
 // back to the page for things like version tags, javascript routing or urls
 router.get('/' + version + '*', function (req, res) {
-//Trim leading '/' from page requested url
-var page_requested = req.originalUrl;
-page_requested = page_requested.substring(1);
+  //Trim leading '/' from page requested url
+  var page_requested = req.originalUrl;
+  page_requested = page_requested.substring(1);
 
-res.render(page_requested, {
-    'version': version,
-});
-});</code></pre>
+  res.render(page_requested, {
+      'version': version,
+  })
+})</code></pre>
         </div>
       </div>
     </div>

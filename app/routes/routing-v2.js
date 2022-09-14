@@ -6,11 +6,6 @@ module.exports = function (router) {
     var version = "v2";
 
     ///////////////////////////////////////////////////////////////////
-    // GLOBAL VARIABLES AND OBJECTS FOR LOGIC OR TO SEND BACK TO PAGES
-    ///////////////////////////////////////////////////////////////////
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    ///////////////////////////////////////////////////////////////////
     // LOAD PAGE SPECIFIC GETS FIRST
     ///////////////////////////////////////////////////////////////////
 
@@ -18,9 +13,8 @@ module.exports = function (router) {
     router.get('/' + version + '/personal-details/check-your-answers/cya', function (req, res) {
         res.render(version + '/personal-details/check-your-answers/cya', {
             'version': version,
-            'months': months[req.session.data['date-of-birth-month']-1]
-        });
-    });
+        })
+    })
 
     ///////////////////////////////////////////////////////////////////
     // ADD ALL PAGE POSTS AND REDIRECTS HERE
@@ -89,6 +83,6 @@ module.exports = function (router) {
 
         res.render(page_requested, {
             'version': version,
-        });
-    });
+        })
+    })
 }
