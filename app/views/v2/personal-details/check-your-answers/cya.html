@@ -79,16 +79,7 @@ Check your answers
         
         <pre class="app-code"><code>var version = "v2";</code></pre>
   
-        <p>When the page is requested</p>
-
-<pre class="app-code"><code>router.get('/' + version + '/personal-details/check-your-answers/cya', function (req, res) {
-    res.render(version + '/personal-details/check-your-answers/cya', {
-        'version': version,
-        'months': months[req.session.data['date-of-birth-month']-1]
-    })
-})</code></pre>
-
-<p>A friendly month is rendered using a filter (friendlyMonths)</p>
+        <p>When the page is requested, a friendly month is rendered using a filter (friendlyMonths)</p>
 
 <pre class="app-code"><code>/apps/filters.js</code></pre>
 
