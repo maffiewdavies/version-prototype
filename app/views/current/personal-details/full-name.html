@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+What is your full name?
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+          <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                  <a href="#full-name">{{error}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+
+        {% if error %}
+          <div class="govuk-form-group govuk-form-group--error">
+        {% else %}
+          <div class="govuk-form-group">
+        {% endif %}
+
+          <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="full-name">
+                What is your full name?
+              </label>
+            </h1>
+            <div id="full-name-hint" class="govuk-hint">
+              This should be your full, legal name including any middle names.
+            </div>
+
+            {% if error %}
+              <p id="full-name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>{{error}}</p>
+              <input class="govuk-input govuk-input--error" id="full-name" name="full-name" type="text" aria-describedby="full-name-hint" value="{{data['full-name']}}">
+            {% else %}
+              <input class="govuk-input" id="full-name" name="full-name" type="text" aria-describedby="full-name-hint" value="{{data['full-name']}}">
+            {% endif %}
+
+          </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+  </div>
+  <div class="govuk-grid-column-full">
+
+    <div class="how-it-works">
+
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-name">
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                What's happening behind the scenes
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p>Routes file being used</p>
+          <pre class="app-code"><code>/apps/routes/routing-v2.js</code></pre>
+        
+          <p>Version set at the top of the routes file</p>
+          
+          <pre class="app-code"><code>var version = "v2";</code></pre>
+    
+          <p>When the form is posted</p>
+    
+<pre class="app-code"><code>// Posting full name
+router.post('/' + version + '/personal-details/full-name', function (req, res) {
+    // Create a variable for the data submitted with the form ('full-name')
+    var full_name = req.session.data['full-name'];
+    
+    // If full_name is empty
+    if (!full_name) {
+        // Render the same page, but push data back for the error message
+        res.render(version + '/personal-details/full-name', {
+            'version': version,
+            'error': 'Enter your full name'
+        })
+                
+    // Full name is not empty so, if full_name is less than 3 characters
+    } else if (full_name.length < 3) {
+        // Render the same page, but push data back for the error message
+        res.render(version + '/personal-details/full-name', {
+            'version': version,
+            'error': 'Full name must be at least 3 characters'
+        })
+    
+    // Full name is not empty so, and it's longer than 3 characters so go to the next page
+    } else {
+        res.redirect('/' + version + '/personal-details/date-of-birth');
+    }
+})
+</code></pre>
+<p>How the version number gets pulled in</p>
+    
+<pre class="app-code"><code>// This route should go at the end of the file and is for passing the version variable
+// back to the page for things like version tags, javascript routing or urls
+router.get('/' + version + '*', function (req, res) {
+  //Trim leading '/' from page requested url
+  var page_requested = req.originalUrl;
+  page_requested = page_requested.substring(1);
+
+  res.render(page_requested, {
+      'version': version,
+  });
+});</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

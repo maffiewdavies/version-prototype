@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+What is your date of birth?
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+          <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                  <a href="#date-of-birth-day">{{error}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+
+        {% if error %}
+          <div class="govuk-form-group govuk-form-group--error">
+        {% else %}
+          <div class="govuk-form-group">
+        {% endif %}
+
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                What is your date of birth?
+              </h1>
+            </legend>
+            <div id="date-of-birth-hint" class="govuk-hint">
+              For example, 27 3 2007
+            </div>
+
+            {% if error %}
+            <p id="date-of-birth-name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>{{error}}</p>
+            {% endif %}
+
+            <div class="govuk-date-input" id="date-of-birth">
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="date-of-birth-day">
+                    Day
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2
+                  {% if (error) and (data['date-of-birth-day'] == '') %} govuk-input--error {% endif %}"
+                  id="date-of-birth-day" name="date-of-birth-day" type="text" inputmode="numeric" value='{{data["date-of-birth-day"]}}'>
+                </div>
+              </div>
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="date-of-birth-month">
+                    Month
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2
+                  {% if (error) and (data['date-of-birth-month'] == '') %} govuk-input--error {% endif %}"
+                  id="date-of-birth-month" name="date-of-birth-month" type="text" inputmode="numeric" value='{{data["date-of-birth-month"]}}'>
+                </div>
+              </div>
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="date-of-birth-year">
+                    Year
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-4
+                  {% if (error) and (data['date-of-birth-year'] == '') %} govuk-input--error {% endif %}"
+                  id="date-of-birth-year" name="date-of-birth-year" type="text" inputmode="numeric" value='{{data["date-of-birth-year"]}}'>
+                </div>
+              </div>
+            </div>
+        
+          </fieldset>
+
+          </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+
+    </div>
+    <div class="govuk-grid-column-full">
+  
+      <div class="how-it-works">
+  
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-dob">
+          <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                  What's happening behind the scenes
+                </span>
+              </h2>
+            </div>
+            <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+              <p>Routes file being used</p>
+            <pre class="app-code"><code>/apps/routes/routing-v2.js</code></pre>
+          
+            <p>Version set at the top of the routes file</p>
+            
+            <pre class="app-code"><code>var version = "v2";</code></pre>
+      
+            <p>When the form is posted</p>
+      
+  <pre class="app-code"><code>// Posting date of birth
+router.post('/' + version + '/personal-details/date-of-birth', function (req, res) {
+    // Create a variable for the three data items submitted with the form ('date-of-birth')
+    var dob_day = req.session.data['date-of-birth-day'];
+    var dob_month = req.session.data['date-of-birth-month'];
+    var dob_year = req.session.data['date-of-birth-year'];
+    
+    // If any of the date inputs are empty
+    if (!dob_day || !dob_month || !dob_year) {
+        // Render the same page, but push data back for the error message
+        res.render(version + '/personal-details/date-of-birth', {
+            'version': version,
+            'error': 'Enter your date of birth'
+        })
+    
+    // Date of birth is not empty so go to the next page
+    } else {
+        res.redirect('/' + version + '/personal-details/check-your-answers/cya');
+    }
+})
+  </code></pre>
+  <p>How the version number gets pulled in</p>
+      
+  <pre class="app-code"><code>// This route should go at the end of the file and is for passing the version variable
+// back to the page for things like version tags, javascript routing or urls
+router.get('/' + version + '*', function (req, res) {
+    //Trim leading '/' from page requested url
+    var page_requested = req.originalUrl;
+    page_requested = page_requested.substring(1);
+
+    res.render(page_requested, {
+        'version': version,
+    })
+})</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  {% endblock %}
